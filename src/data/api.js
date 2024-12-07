@@ -1,5 +1,9 @@
 import prods from "./json/products.json"
 import team from "./json/team.json"
+import { convertPath } from "../utils/utils"
+
+convertPath(prods);
+convertPath(team);
 
 const prodsJson = JSON.stringify(prods);
 const teamJson = JSON.stringify(team);
