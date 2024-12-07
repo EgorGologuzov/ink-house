@@ -8,9 +8,11 @@
           Значимость этих проблем настолько очевидна, что базовый вектор развития позволяет оценить значение экспериментов, поражающих по своей масштабности и грандиозности. Мы вынуждены отталкиваться от того, что консультация с широким активом.
         </p>
         <div class="team__list">
-          <img class="team__member" src="../assets/member-1.png"/>
-          <img class="team__member" src="../assets/member-1.png"/>
-          <img class="team__member" src="../assets/member-1.png"/>
+          <img
+            class="team__member"
+            v-for="member in team"
+            :src="member.ava"
+            :title="member.name + ', ' + member.role" />
         </div>
       </div>
     </GridContainer>
@@ -19,11 +21,24 @@
 
 <script>
 import GridContainer from './GridContainer.vue';
+import { getTeam } from '../data/api.js';
 
 export default {
   name: 'OurTeam',
   components: {
     GridContainer,
+  },
+  data() {
+    return {
+      team: []
+    }
+  },
+  async mounted() {
+    try {
+      this.team = (await getTeam()).filter((_, index) => index < 3);
+    } catch (error) {
+      console.error('Не удалось загрузить:', error);
+    }
   }
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
-  <div class="item">
-    <img class="item__ava" src="../assets/img-2.jpg"/>
-    <p class="item__artist">Марсель Руссо</p>
-    <h3 class="item__title">Охота Амура</h3>
-    <p class="item__info">Холст, масло (50х80)</p>
-    <p class="item__price">14 500 руб</p>
+  <div class="item" v-if="product">
+    <img class="item__ava" :src="product.ava"/>
+    <p class="item__artist">{{ product.artist }}</p>
+    <h3 class="item__title">{{ product.title }}</h3>
+    <p class="item__info">{{ product.desc }}</p>
+    <p class="item__price">{{ product.price.toLocaleString() }} руб</p>
     <Button text="В корзину" />
   </div>
 </template>
@@ -16,6 +16,11 @@ export default {
   name: 'Item',
   components: {
     Button
+  },
+  props: {
+    product: {
+      type: Object
+    }
   }
 }
 </script>

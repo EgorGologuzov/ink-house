@@ -5,8 +5,7 @@
         <h2 class="catalog__title">Репродукции</h2>
         <Filter />
       </div>
-      <Item />
-      <Item />
+      <Item v-for="prod in products" :key="prod.id" :product="prod" />
     </GridContainer>
   </div>
 </template>
@@ -15,6 +14,7 @@
 import GridContainer from './GridContainer.vue';
 import Item from './Item.vue';
 import Filter from './Filter.vue';
+import { getProducts } from '../data/api.js';
 
 export default {
   name: 'Catalog',
@@ -22,6 +22,18 @@ export default {
     GridContainer,
     Item,
     Filter
+  },
+  data() {
+    return {
+      products: []
+    }
+  },
+  async mounted() {
+    try {
+      this.products = (await getProducts()).filter((_, index) => index < 6);
+    } catch (error) {
+      console.error('Не удалось загрузить:', error);
+    }
   }
 }
 </script>
